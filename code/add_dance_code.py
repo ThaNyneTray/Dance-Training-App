@@ -20,8 +20,7 @@ tags_dict = defaultdict(set)
 #          into data structures
 # this likely belongs to a different module.
 def load_from_db():
-
-    database = os.path.abspath("./moves.db")
+    database = os.path.abspath("./moves.sqlite")
     conn = db.create_connection(database)
     # db.delete_all_moves(conn)
     if conn is None: return
@@ -105,7 +104,7 @@ class AddDanceWindow(QtWidgets.QMainWindow):
 
     # initializes dance database
     def init_db(self):
-        database = os.path.abspath("./moves.db")
+        database = os.path.abspath("./moves.sqlite")
         sql_create_dance_table = """ CREATE TABLE IF NOT EXISTS moves (
                                            name text,
                                            category text,
@@ -137,3 +136,4 @@ app = QtWidgets.QApplication([])
 application = AddDanceWindow()
 application.show()
 sys.exit(app.exec())
+

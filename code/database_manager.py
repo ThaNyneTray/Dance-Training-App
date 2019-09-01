@@ -3,6 +3,9 @@ import os
 from sqlite3 import Error
 
 
+# TODO: find out if using QSqlDatabase, QSqlQueryModel is a good idea
+
+
 def create_connection(db_file):
     """creates a database connection to SQLite database
     :param db_file: database file
