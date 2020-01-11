@@ -1,10 +1,11 @@
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import Qt
 from PyQt5.QtSql import *
-import sys, time
+import sys
 from code.dance_app_uis.modify_dance_window import Ui_ModifyDanceMove
 
 
+# TODO: move this to a separate file??
 def create_connection():
     db = QSqlDatabase.addDatabase("QSQLITE")
     db.setDatabaseName("moves.sqlite")
@@ -45,8 +46,6 @@ class ModifyDanceWindow(QtWidgets.QMainWindow):
         self.db = create_connection()
 
         self.model = QSqlTableModel(db=self.db)
-        self.modelV2 = QSqlTableModel(db=self.db)
-        initialize_model(self.modelV2)
         initialize_model(self.model)
 
         self.ui.moves_View.setModel(self.model)

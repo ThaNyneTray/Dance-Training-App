@@ -6,7 +6,7 @@
             <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>569</width>
+                <width>570</width>
                 <height>407</height>
             </rect>
         </property>
@@ -14,8 +14,73 @@
             <string>Modify Dance Video</string>
         </property>
         <widget class="QWidget" name="centralwidget">
-            <layout class="QGridLayout" name="gridLayout">
-                <item row="0" column="4">
+            <widget class="QSplitter" name="splitter_2">
+                <property name="geometry">
+                    <rect>
+                        <x>190</x>
+                        <y>330</y>
+                        <width>361</width>
+                        <height>23</height>
+                    </rect>
+                </property>
+                <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                </property>
+                <widget class="QPushButton" name="undo_Button">
+                    <property name="sizePolicy">
+                        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                    <property name="text">
+                        <string>Undo Changes</string>
+                    </property>
+                </widget>
+                <widget class="QPushButton" name="cancel_Button">
+                    <property name="sizePolicy">
+                        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                    <property name="text">
+                        <string>Cancel Changes</string>
+                    </property>
+                </widget>
+                <widget class="QPushButton" name="submit_Button">
+                    <property name="sizePolicy">
+                        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                    <property name="text">
+                        <string>Submit Changes</string>
+                    </property>
+                </widget>
+            </widget>
+            <widget class="QSplitter" name="splitter_3">
+                <property name="geometry">
+                    <rect>
+                        <x>9</x>
+                        <y>9</y>
+                        <width>541</width>
+                        <height>311</height>
+                    </rect>
+                </property>
+                <property name="orientation">
+                    <enum>Qt::Vertical</enum>
+                </property>
+                <widget class="QSplitter" name="splitter">
+                    <property name="orientation">
+                        <enum>Qt::Horizontal</enum>
+                    </property>
+                    <widget class="QLineEdit" name="search_lineEdit">
+                        <property name="placeholderText">
+                            <string>enter search term; e.g kick step, hip hop e.t.c</string>
+                        </property>
+                    </widget>
                     <widget class="QComboBox" name="filter_comboBox">
                         <property name="sizePolicy">
                             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -49,71 +114,23 @@
                             </property>
                         </item>
                     </widget>
-                </item>
-                <item row="0" column="0" colspan="4">
-                    <widget class="QLineEdit" name="search_lineEdit">
-                        <property name="placeholderText">
-                            <string>enter search term; e.g kick step, hip hop e.t.c</string>
-                        </property>
-                    </widget>
-                </item>
-                <item row="1" column="0" colspan="5">
-                    <widget class="QTableView" name="moves_View">
-                        <property name="showGrid">
-                            <bool>false</bool>
-                        </property>
-                        <attribute name="verticalHeaderVisible">
-                            <bool>false</bool>
-                        </attribute>
-                    </widget>
-                </item>
-                <item row="2" column="2">
-                    <widget class="QPushButton" name="undo_Button">
-                        <property name="sizePolicy">
-                            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                                <horstretch>0</horstretch>
-                                <verstretch>0</verstretch>
-                            </sizepolicy>
-                        </property>
-                        <property name="text">
-                            <string>Undo Changes</string>
-                        </property>
-                    </widget>
-                </item>
-                <item row="2" column="3">
-                    <widget class="QPushButton" name="submit_Button">
-                        <property name="sizePolicy">
-                            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                                <horstretch>0</horstretch>
-                                <verstretch>0</verstretch>
-                            </sizepolicy>
-                        </property>
-                        <property name="text">
-                            <string>Submit Changes</string>
-                        </property>
-                    </widget>
-                </item>
-                <item row="2" column="4">
-                    <widget class="QPushButton" name="cancel_Button">
-                        <property name="sizePolicy">
-                            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                                <horstretch>0</horstretch>
-                                <verstretch>0</verstretch>
-                            </sizepolicy>
-                        </property>
-                        <property name="text">
-                            <string>Cancel Changes</string>
-                        </property>
-                    </widget>
-                </item>
-            </layout>
+                </widget>
+                <widget class="QTableView" name="moves_View">
+                    <property name="showGrid">
+                        <bool>false</bool>
+                    </property>
+                    <attribute name="verticalHeaderVisible">
+                        <bool>false</bool>
+                    </attribute>
+                </widget>
+            </widget>
         </widget>
         <widget class="QMenuBar" name="menubar">
             <property name="geometry">
                 <rect>
                     <x>0</x>
                     <y>0</y>
-                    <width>569</width>
+                    <width>570</width>
                     <height>21</height>
                 </rect>
             </property>
