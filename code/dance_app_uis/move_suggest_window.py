@@ -8,7 +8,6 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import sys
 
 
 class Ui_MoveChallengeWindow(object):
@@ -47,6 +46,10 @@ class Ui_MoveChallengeWindow(object):
         self.start_pushButton = QtWidgets.QPushButton(self.centralwidget)
         self.start_pushButton.setObjectName("start_pushButton")
         self.horizontalLayout_2.addWidget(self.start_pushButton)
+        self.pause_pushButton = QtWidgets.QPushButton(self.centralwidget)
+        self.pause_pushButton.setEnabled(False)
+        self.pause_pushButton.setObjectName("pause_pushButton")
+        self.horizontalLayout_2.addWidget(self.pause_pushButton)
         self.stop_pushButton = QtWidgets.QPushButton(self.centralwidget)
         self.stop_pushButton.setObjectName("stop_pushButton")
         self.horizontalLayout_2.addWidget(self.stop_pushButton)
@@ -57,7 +60,7 @@ class Ui_MoveChallengeWindow(object):
         self.verticalLayout.addWidget(self.change_pushButton)
         MoveChallengeWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MoveChallengeWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 265, 21))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 265, 26))
         self.menubar.setObjectName("menubar")
         MoveChallengeWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MoveChallengeWindow)
@@ -74,5 +77,6 @@ class Ui_MoveChallengeWindow(object):
         self.time_lineEdit.setText(_translate("MoveChallengeWindow", "8"))
         self.reset_pushButton.setText(_translate("MoveChallengeWindow", "Reset"))
         self.start_pushButton.setText(_translate("MoveChallengeWindow", "Start"))
+        self.pause_pushButton.setText(_translate("MoveChallengeWindow", "Pause"))
         self.stop_pushButton.setText(_translate("MoveChallengeWindow", "Stop"))
         self.change_pushButton.setText(_translate("MoveChallengeWindow", "Change Move List"))

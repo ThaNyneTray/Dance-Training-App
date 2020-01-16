@@ -69,7 +69,8 @@ class Ui_ChallengeWindow(object):
         _translate = QtCore.QCoreApplication.translate
         ChallengeWindow.setWindowTitle(_translate("ChallengeWindow", "Move Challenge"))
         self.explanation_label.setText(
-            _translate("ChallengeWindow", "Select moves from the list below for the challenge from the list below "))
+            _translate("ChallengeWindow", "Select moves from the list below for the challenge from the list below\n"
+                                          "                                    "))
         self.add_pushButton.setText(_translate("ChallengeWindow", "Add"))
         self.remove_pushButton.setText(_translate("ChallengeWindow", "Remove"))
         self.next_pushButton.setText(_translate("ChallengeWindow", "Next"))

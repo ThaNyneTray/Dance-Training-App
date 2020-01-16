@@ -77,6 +77,16 @@
                             </widget>
                         </item>
                         <item>
+                            <widget class="QPushButton" name="pause_pushButton">
+                                <property name="enabled">
+                                    <bool>false</bool>
+                                </property>
+                                <property name="text">
+                                    <string>Pause</string>
+                                </property>
+                            </widget>
+                        </item>
+                        <item>
                             <widget class="QPushButton" name="stop_pushButton">
                                 <property name="text">
                                     <string>Stop</string>
@@ -106,7 +116,7 @@
                     <x>0</x>
                     <y>0</y>
                     <width>265</width>
-                    <height>21</height>
+                    <height>26</height>
                 </rect>
             </property>
         </widget>

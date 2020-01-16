@@ -1,9 +1,12 @@
+import sys
+import random
+import threading
+import time
 from PyQt5 import QtWidgets
 from PyQt5.QtSql import *
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import QAbstractItemView
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
-import sys
 from code.dance_app_uis.move_challenge_window import Ui_ChallengeWindow
 from code.dance_app_uis.move_suggest_window import Ui_MoveChallengeWindow
 
@@ -24,7 +27,6 @@ def create_connection():
 def initialize_model(model):
     model.setTable("moves")
     model.setEditStrategy(QSqlTableModel.OnManualSubmit)
-    # model.selectStatement
     model.select()
     model.setHeaderData(0, Qt.Horizontal, "Name")
 
@@ -119,11 +121,15 @@ class MoveChallengeWindow(QtWidgets.QMainWindow):
 
         self.attach_slots()
 
+        self.moves = None
+        self.counter = 0
+
     def attach_slots(self):
         self.ui.time_slider.valueChanged.connect(lambda: self.val_changed(self.ui.time_slider, "lineEdit"))
         self.ui.time_lineEdit.textChanged.connect(lambda: self.val_changed(self.ui.time_lineEdit, "slider"))
         self.ui.reset_pushButton.clicked.connect(self.reset)
         self.ui.start_pushButton.clicked.connect(self.start_suggestions)
+        self.ui.pause_pushButton.clicked.connect(self.pause_suggestions)
         self.ui.stop_pushButton.clicked.connect(self.stop_suggestions)
         self.ui.change_pushButton.clicked.connect(self.open_moves_selection)
 
@@ -141,13 +147,54 @@ class MoveChallengeWindow(QtWidgets.QMainWindow):
         self.ui.time_lineEdit.setText("8")
         self.ui.time_slider.setValue(8)
 
-    # slot/method for start button
+    # slot/method for start button. this creates a thread that changes the moves
+    #  label every x seconds.
     def start_suggestions(self):
-        pass
+        self.moves = list(select_window.get_old_items())
+        if self.ui.start_pushButton.text() == "Start":
+            self.ui.start_pushButton.setText("Restart")
+            random.shuffle(self.moves)
+        elif self.ui.start_pushButton.text() == "Restart":
+            self.counter = 0
+            self.ui.pause_pushButton.setText("Pause")
+
+        self.ui.pause_pushButton.setDisabled(False)
+        suggestions_thread = threading.Thread(target=self.start_suggestions_event, daemon=True)
+        suggestions_thread.start()
+
+    def start_suggestions_event(self):
+        # self.suggestions_thread = threading.Thread(target=self.suggestions_thread, daemon=True)
+        # self.suggestions_thread.start()
+        self.sugestions_event = threading.Event()
+        self.interval = self.ui.time_slider.value()
+        print(self.moves)
+        while not self.sugestions_event.is_set() and self.counter < len(self.moves):
+            print(self.counter, self.moves[self.counter])
+            self.ui.move_label.setText(self.moves[self.counter])
+            self.sugestions_event.wait(self.interval)
+            self.counter += 1
+            # if self.counter == len(self.moves):
+            #     self.counter == 0
+        # self.ui.move_label.setText("Moves list completed. \nClick start to restart.")
+
+    def pause_suggestions(self):
+        if self.ui.pause_pushButton.text() == "Pause":
+            self.sugestions_event.set()
+            self.ui.pause_pushButton.setText("Resume")
+        elif self.ui.pause_pushButton.text() == "Resume":
+            self.sugestions_event.clear()
+            self.ui.pause_pushButton.setText("Pause")
+            suggestions_thread = threading.Thread(target=self.start_suggestions_event, daemon=True)
+            self.counter -= 1
+            suggestions_thread.start()
 
     # slot/method for stop button
     def stop_suggestions(self):
-        pass
+        self.ui.pause_pushButton.setText("Pause")
+        self.ui.start_pushButton.setText("Start")
+        self.ui.pause_pushButton.setDisabled(True)
+        self.counter = 0
+        self.sugestions_event.set()
 
     # TODO: this is terrible coding my man. I wonder how many guidelines
     #  I've broken just now.
@@ -156,8 +203,7 @@ class MoveChallengeWindow(QtWidgets.QMainWindow):
         select_window.show()
 
 
-# import code.move_suggest_code as msc
-
+# making sure I get error messages.
 _excepthook = sys.excepthook
 
 
