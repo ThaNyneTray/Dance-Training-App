@@ -1,0 +1,20 @@
+\documentclass{article}
+\author{Desmond Tuiyot}
+\title{Dance App development notes/diary}
+\begin{document}
+\maketitle
+\section{01/15/2020}
+\begin{itemize}
+	\item \textbf{Multi-window issue:} I had the idea to merge move\_suggest\_code and move\_challenge\_code since they depend on each other. User should be able to move from one window to the next and vice versa.\\
+	Decided to have 2 classes in one file. The class objects are instantiated globally and are hidden and shown as means of opening and closing them.
+	\item \textbf{Start, Pause and Stop suggestions: }This one was interesting. I created a daemon thread that creates an Event that updates the text display every x seconds. I made it an event so that it would be possible to stop the Event using the Event.set() method to set a flag that the Event will be looking out for. Added new states for the buttons: \texttt{Start} becomes \texttt{Restart} and vice versa, \texttt{Pause} becomes \texttt{Resume} and vice versa, \texttt{Pause} is disabled initially and on \texttt{Stop}.    
+\end{itemize}
+
+\section{01/16/2020}
+\textbf{Agenda}
+\begin{itemize}
+	\item Think about how to tie the windows together. Make it a cohesive application.
+	\item Go through the user interface and check to see that all buttons do what they are supposed to do. 
+	\item Look for inspiration to make the app look a little bit better. 
+\end{itemize}
+\end{document}
