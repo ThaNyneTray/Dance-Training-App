@@ -1,5 +1,7 @@
 from collections import defaultdict
-from PyQt5 import QtWidgets
+from PyQt5.QtWidgets import QMainWindow, QApplication, QMessageBox
+from PyQt5.QtCore import QRegExp
+from PyQt5.QtGui import QRegExpValidator, QColor
 from code.dance_app_uis.add_dance_window import Ui_AddDanceWindow
 import code.database_manager as db
 import sys
@@ -44,7 +46,7 @@ def load_from_db():
         print(tag, tags_dict[tag])
 
 
-class AddDanceWindow(QtWidgets.QMainWindow):
+class AddDanceWindow(QMainWindow):
     # init function
     def __init__(self):
         super(AddDanceWindow, self).__init__()
@@ -52,18 +54,31 @@ class AddDanceWindow(QtWidgets.QMainWindow):
         self.ui.setupUi(self)
         self.assign_slots()
         self.init_db()
+        # self.validator()
 
     # method to assign slots to buttons.
     def assign_slots(self):
+
         self.ui.submit_pushButton.clicked.connect(self.submit_btn_pressed)
+        self.ui.clear_pushButton.clicked.connect(self.clear_fields)
+        # self.ui.tags_lineEdit.textChanged.connect(lambda: self.visual_feedback(self.ui.tags_lineEdit))
+        # self.ui.name_lineEdit.textChanged.connect(lambda: self.visual_feedback(self.ui.name_lineEdit))
+        # self.ui.description_textEdit.textChanged.connect(lambda: self.visual_feedback(self.ui.description_textEdit))
+
+    def validator(self):
+        rx = QRegExp("\w+")
+        validator = QRegExpValidator(rx)
+        self.ui.name_lineEdit.setValidator(validator)
+        self.ui.tags_lineEdit.setValidator(validator)
 
     # method to save input data, when submit button is pressed
     def submit_btn_pressed(self):
 
-        # TODO: make sure the name and category fields are selected.
-        #       Define a class or a function to validate input, to make
-        #       sure that there is input, to give visual feedback based on
-        #       whether the user has valid input to submit.
+        # TODO: give visual feedback based on whether the user has valid input to submit.
+        # self.validator()
+        if not self.ui.name_lineEdit.text() or not self.ui.tags_lineEdit.text():
+            self.show_empty_field_messagebox(self.ui.name_lineEdit.text(), self.ui.tags_lineEdit.text())
+            return
 
         # description data is optional; sets the correct value depending on whether the user has entered a description
         description = self.ui.description_textEdit.toPlainText()
@@ -88,19 +103,39 @@ class AddDanceWindow(QtWidgets.QMainWindow):
         for tag in tags_list:
             tags_dict[tag].add(dance_move.name)
 
+        self.add_to_db(dance_move)
+        time.sleep(0.5)
+        self.clear_fields()
+
+    def show_empty_field_messagebox(self, name_text, tags_text):
+        empty_field_messagebox = QMessageBox()
+        empty_field_messagebox.setWindowTitle("Add Dance")
+        empty_field_messagebox.setIcon(QMessageBox.Warning)
+        empty_field_messagebox_button = empty_field_messagebox.addButton(QMessageBox.Ok)
+        empty_field_messagebox_button.setDefault(True)
+
+        if not name_text and not tags_text:
+            empty_field_messagebox.setText("Name and Tags fields are empty")
+        elif not tags_text:
+            empty_field_messagebox.setText("Tags field is empty")
+        elif not name_text:
+            empty_field_messagebox.setText("Name field is empty")
+
+        empty_field_messagebox.exec_()
+
+    def add_to_db(self, dance_move):
+
         # adds move data to moves table
         db.add_move(self.conn, dance_move)
         self.conn.commit()
 
         db.print_entries(self.conn)
 
-        time.sleep(0.5)
-
-        # clears the input fields
-        self.ui.name_lineEdit.clear()
-        self.ui.category_comboBox.setCurrentIndex(0)
-        self.ui.tags_lineEdit.clear()
-        self.ui.description_textEdit.clear()
+    def clear_fields(self):
+        self.ui.name_lineEdit.setText("")
+        self.ui.tags_lineEdit.setText("")
+        self.ui.description_textEdit.setText("")
+        # self.ui.name_lineEdit.setPlaceholderText("Enter the name of the move")
 
     # initializes dance database
     def init_db(self):
@@ -131,8 +166,21 @@ class DanceMove:
         self.sessions = None
 
 
+# making sure I get error messages.
+_excepthook = sys.excepthook
+
+
+def exception_hook(exctype, value, traceback):
+    print(exctype, value, traceback)
+    _excepthook(exctype, value, traceback)
+    sys.exit(1)
+
+
+sys.excepthook = exception_hook
+
+
 load_from_db()
-app = QtWidgets.QApplication([])
+app = QApplication([])
 application = AddDanceWindow()
 application.show()
 sys.exit(app.exec())

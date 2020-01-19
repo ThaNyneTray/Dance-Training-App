@@ -9,6 +9,13 @@
 	Decided to have 2 classes in one file. The class objects are instantiated globally and are hidden and shown as means of opening and closing them.
 	\item \textbf{Start, Pause and Stop suggestions: }This one was interesting. I created a daemon thread that creates an Event that updates the text display every x seconds. I made it an event so that it would be possible to stop the Event using the Event.set() method to set a flag that the Event will be looking out for. Added new states for the buttons: \texttt{Start} becomes \texttt{Restart} and vice versa, \texttt{Pause} becomes \texttt{Resume} and vice versa, \texttt{Pause} is disabled initially and on \texttt{Stop}.    
 \end{itemize}
+\textbf{Playlist}
+\begin{itemize}
+	\item Roddy Ricch - Moonwalking
+	\item Roddy Ricch - Gods Eyes
+	\item Roddy Ricch - High Fashion
+	\item Roddy Ricch - War Baby
+\end{itemize}
 
 \section{01/16/2020}
 \textbf{Agenda}
@@ -16,5 +23,47 @@
 	\item Think about how to tie the windows together. Make it a cohesive application.
 	\item Go through the user interface and check to see that all buttons do what they are supposed to do. 
 	\item Look for inspiration to make the app look a little bit better. 
+\end{itemize}
+\textbf{What I Dealt With}
+\begin{itemize}
+	\item Did input validation for the \texttt{add\_dance\_code}
+\end{itemize}
+\textbf{Playlist}
+\begin{itemize}
+	\item Outkast - Rosa Parks
+	\item Outkast - Skew It on the Bar-B
+	\item Outkast - Da Art of Storytellin' (Pt. 2)
+	\item Outkast - Chonkyfire (where else is this sound)
+	\item Kendrick Lamar - Wesley's Theory
+	\item Kendrick Lamar - King Kunta
+\end{itemize}
+
+\section{01/18/2020}
+\begin{itemize}
+	\item \texttt{TODO:} Visual feedback about whether the input is valid - this involved changing the shade of the widget (in this case a QLineEdit) accordingly. We want it to be unobstrusive, so lower contrasts are preferred.
+	\item \texttt{TODO: } Separating tags when user presses 'Enter'. This could be interesting. 
+\end{itemize}
+\textbf{Playlist}
+\begin{itemize}
+	\item Eminem - Marsh
+	\item Eminem - Premonition
+	\item Eminem - Unaccomodating
+	\item Eminem - Yah Yah
+\end{itemize}
+
+\section{01/19/2020}
+\begin{itemize}
+	\item \texttt{TODO:} Visual feedback about whether the input is valid - this involved changing the shade of the widget (in this case a QLineEdit) accordingly. We want it to be unobstrusive, so lower contrasts are preferred.\\
+	\textbf{Solution: }Decided to go with a message box instead of changing background color. Could probably implement this in future anyways.
+	\item \texttt{TODO: } Separating tags when user presses 'Enter'. This could be interesting. 
+\end{itemize}
+\textbf{Playlist}
+\begin{itemize}
+	\item Mac Miller - Circles
+	\item Mac Miller - Good News
+	\item Mac Miller - 
+	\item Mac Miller - 
+	\item Mac Miller - 
+	\item Mac Miller - 
 \end{itemize}
 \end{document}
