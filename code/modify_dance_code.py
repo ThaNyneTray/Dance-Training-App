@@ -85,6 +85,6 @@ class ModifyDanceWindow(QtWidgets.QMainWindow):
 
 
 app = QtWidgets.QApplication(sys.argv)
-window = ModifyDanceWindow()
-window.show()
-app.exec_()
+modify_dance_window = ModifyDanceWindow()
+# window.show()
+# app.exec_()

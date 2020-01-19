@@ -181,7 +181,7 @@ sys.excepthook = exception_hook
 
 load_from_db()
 app = QApplication([])
-application = AddDanceWindow()
-application.show()
-sys.exit(app.exec())
-
+add_dance_window = AddDanceWindow()
+# application = AddDanceWindow()
+# application.show()
+# sys.exit(app.exec())

@@ -218,5 +218,5 @@ sys.excepthook = exception_hook
 app = QtWidgets.QApplication(sys.argv)
 select_window = MoveSelectWindow()
 challenge_window = MoveChallengeWindow()
-select_window.show()
-app.exec_()
+# select_window.show()
+# app.exec_()
