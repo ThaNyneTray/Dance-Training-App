@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>335</width>
-    <height>241</height>
+       <width>434</width>
+       <height>382</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,7 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <layout class="QGridLayout" name="input_gridLayout">
+        <layout class="QGridLayout" name="gridLayout">
       <item row="0" column="0">
        <widget class="QLabel" name="category_label">
         <property name="text">
@@ -51,6 +51,13 @@
         </item>
        </widget>
       </item>
+            <item row="1" column="0">
+                <widget class="QLabel" name="name_label">
+                    <property name="text">
+                        <string>Name</string>
+                    </property>
+                </widget>
+            </item>
       <item row="1" column="1">
        <widget class="QLineEdit" name="name_lineEdit">
         <property name="placeholderText">
@@ -65,21 +72,28 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="name_label">
+            <item row="2" column="1">
+                <widget class="QLabel" name="tags_label_2">
         <property name="text">
-         <string>Name</string>
+            <string>Enter tags below, separating with commas</string>
+        </property>
+                </widget>
+            </item>
+            <item row="3" column="1">
+                <widget class="QComboBox" name="tags_comboBox">
+                    <property name="editable">
+                        <bool>true</bool>
         </property>
        </widget>
       </item>
-      <item row="3" column="0">
+            <item row="4" column="0">
        <widget class="QLabel" name="description_label">
         <property name="text">
          <string>Description</string>
         </property>
        </widget>
       </item>
-      <item row="3" column="1">
+            <item row="4" column="1" rowspan="2">
        <widget class="QTextEdit" name="description_textEdit">
         <property name="minimumSize">
          <size>
@@ -87,38 +101,72 @@
           <height>0</height>
          </size>
         </property>
-        <property name="placeholderText">
-         <string>(Optional) Enter description for this dance move</string>
-        </property>
        </widget>
       </item>
-      <item row="2" column="1">
-       <widget class="QLineEdit" name="tags_lineEdit">
-        <property name="placeholderText">
-         <string>Enter tags for this move; separate with semi-colons</string>
+            <item row="5" column="0">
+                <spacer name="verticalSpacer">
+                    <property name="orientation">
+                        <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                        <size>
+                            <width>20</width>
+                            <height>138</height>
+                        </size>
         </property>
-       </widget>
+                </spacer>
       </item>
      </layout>
     </item>
     <item>
-     <layout class="QGridLayout" name="button_gridLayout">
-      <item row="0" column="0">
+        <layout class="QHBoxLayout" name="horizontalLayout">
+            <item>
+                <spacer name="horizontalSpacer">
+                    <property name="orientation">
+                        <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                        <size>
+                            <width>158</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                </spacer>
+            </item>
+            <item>
        <widget class="QPushButton" name="submit_pushButton">
+           <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+               </sizepolicy>
+           </property>
         <property name="text">
          <string>Submit</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="1">
+            <item>
        <widget class="QPushButton" name="cancel_pushButton">
+           <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+               </sizepolicy>
+           </property>
         <property name="text">
          <string>Cancel</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="2">
+            <item>
        <widget class="QPushButton" name="clear_pushButton">
+           <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+               </sizepolicy>
+           </property>
         <property name="text">
          <string>Clear</string>
         </property>
@@ -133,7 +181,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>335</width>
+        <width>434</width>
      <height>21</height>
     </rect>
    </property>

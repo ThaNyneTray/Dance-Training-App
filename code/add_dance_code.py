@@ -3,6 +3,7 @@ from PyQt5.QtCore import QRegExp
 from PyQt5.QtGui import QRegExpValidator
 from code.dance_app_uis.add_dance_window import Ui_AddDanceWindow
 import code.database_manager as db
+import code.database_manager as db
 import sys
 import time
 import os
@@ -29,7 +30,6 @@ class AddDanceWindow(QMainWindow):
 
         self.ui.submit_pushButton.clicked.connect(self.submit_btn_pressed)
         self.ui.clear_pushButton.clicked.connect(self.clear_fields)
-        # self.ui.tags_lineEdit.textChanged.connect(lambda: self.visual_feedback(self.ui.tags_lineEdit))
         # self.ui.name_lineEdit.textChanged.connect(lambda: self.visual_feedback(self.ui.name_lineEdit))
         # self.ui.description_textEdit.textChanged.connect(lambda: self.visual_feedback(self.ui.description_textEdit))
 
@@ -37,15 +37,15 @@ class AddDanceWindow(QMainWindow):
         rx = QRegExp("\w+")
         validator = QRegExpValidator(rx)
         self.ui.name_lineEdit.setValidator(validator)
-        self.ui.tags_lineEdit.setValidator(validator)
+        # self.ui.tags_lineEdit.setValidator(validator)
 
     # method to save input data, when submit button is pressed
     def submit_btn_pressed(self):
 
         # TODO: give visual feedback based on whether the user has valid input to submit.
         # self.validator()
-        if not self.ui.name_lineEdit.text() or not self.ui.tags_lineEdit.text():
-            self.show_empty_field_messagebox(self.ui.name_lineEdit.text(), self.ui.tags_lineEdit.text())
+        if not self.ui.name_lineEdit.text():
+            self.show_empty_field_messagebox(self.ui.name_lineEdit.text())
             return
 
         # description data is optional; sets the correct value depending on whether the user has entered a description
@@ -53,7 +53,10 @@ class AddDanceWindow(QMainWindow):
         description = description.strip() if description.strip() else None
 
         # convert tag input from string to list, for ease of manipulation/storage
-        tags_list = [tag.strip() for tag in self.ui.tags_lineEdit.text().split(";") if tag.strip()]
+        tags_list = [tag for tag in [self.ui.tags_comboBox.itemText(i) for i in range(self.ui.tags_comboBox.count())]]
+
+        # convert tag input from string to list, for ease of manipulation/storage
+        # tags_list = [tag.strip() for tag in self.ui.tags_lineEdit.text().split(";") if tag.strip()]
         tags_list = set(tags_list) if tags_list else None
 
         # TODO: add a check for whether the dance move exists. Not necessary to do this check in database_manager.py
@@ -75,18 +78,18 @@ class AddDanceWindow(QMainWindow):
         time.sleep(0.5)
         self.clear_fields()
 
-    def show_empty_field_messagebox(self, name_text, tags_text):
+    def show_empty_field_messagebox(self, name_text):
         empty_field_messagebox = QMessageBox()
         empty_field_messagebox.setWindowTitle("Add Dance")
         empty_field_messagebox.setIcon(QMessageBox.Warning)
         empty_field_messagebox_button = empty_field_messagebox.addButton(QMessageBox.Ok)
         empty_field_messagebox_button.setDefault(True)
 
-        if not name_text and not tags_text:
-            empty_field_messagebox.setText("Name and Tags fields are empty")
-        elif not tags_text:
-            empty_field_messagebox.setText("Tags field is empty")
-        elif not name_text:
+        # if not name_text and not tags_text:
+        #     empty_field_messagebox.setText("Name and Tags fields are empty")
+        # elif not tags_text:
+        #     empty_field_messagebox.setText("Tags field is empty")
+        if not name_text:
             empty_field_messagebox.setText("Name field is empty")
 
         empty_field_messagebox.exec_()
@@ -101,7 +104,7 @@ class AddDanceWindow(QMainWindow):
 
     def clear_fields(self):
         self.ui.name_lineEdit.setText("")
-        self.ui.tags_lineEdit.setText("")
+        self.ui.tags_comboBox.clear()
         self.ui.description_textEdit.setText("")
         # self.ui.name_lineEdit.setPlaceholderText("Enter the name of the move")
 

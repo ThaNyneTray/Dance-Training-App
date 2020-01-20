@@ -29,7 +29,7 @@ def load_from_db():
     if not data: return
 
     for (name, category, tags, description) in data:
-        tags = set(tags.split(';')) if tags else None
+        tags = set(tags.split(',')) if tags else None
         print(len(tags) if tags else 0)
         dance_moves[name] = DanceMove(name, category, tags, description)
 
