@@ -1,49 +1,17 @@
-from collections import defaultdict
 from PyQt5.QtWidgets import QMainWindow, QApplication, QMessageBox
 from PyQt5.QtCore import QRegExp
-from PyQt5.QtGui import QRegExpValidator, QColor
+from PyQt5.QtGui import QRegExpValidator
 from code.dance_app_uis.add_dance_window import Ui_AddDanceWindow
 import code.database_manager as db
 import sys
 import time
 import os
 # import json
+from code.dance_moves import *
 
-dance_moves = dict()
-tags_dict = defaultdict(set)
 
 # TODO: Figure out how to handle tags when the app is running.
 #          Likely ome pre-processing when the app first runs
-
-# TODO: Think about input validation and stuff
-
-
-# TODO: Think about how to handle loading data from data structure
-#          into data structures
-# this likely belongs to a different module.
-def load_from_db():
-    database = os.path.abspath("./moves.sqlite")
-    conn = db.create_connection(database)
-    # db.delete_all_moves(conn)
-    if conn is None: return
-
-    data = db.select_all_moves(conn)
-    print(data)
-
-    if not data: return
-
-    for (name, category, tags, description) in data:
-        tags = set(tags.split(';')) if tags else None
-        print(len(tags) if tags else 0)
-        dance_moves[name] = DanceMove(name, category, tags, description)
-
-        if tags is None: continue
-
-        for tag in tags:
-            tags_dict[tag].add(name)
-
-    for tag in tags_dict.keys():
-        print(tag, tags_dict[tag])
 
 
 class AddDanceWindow(QMainWindow):
@@ -155,15 +123,6 @@ class AddDanceWindow(QMainWindow):
 
     # saves dance moves to database
     # def save_to_db(self, dance_move):
-
-
-class DanceMove:
-    def __init__(self, name, category, tags, description):
-        self.name = name
-        self.category = category
-        self.tags = tags
-        self.description = description
-        self.sessions = None
 
 
 # making sure I get error messages.

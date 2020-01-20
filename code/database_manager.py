@@ -1,10 +1,22 @@
 import sqlite3
 import os
 from sqlite3 import Error
+from PyQt5.QtSql import QSqlDatabase
 
 
 # TODO: find out if using QSqlDatabase, QSqlQueryModel is a good idea
 
+
+# def create_connection():
+#     db = QSqlDatabase.addDatabase("QSQLITE")
+#     db.setDatabaseName("moves.sqlite")
+#     opened = db.open()
+#     if not opened:
+#         print(db.lastError().databaseText())
+#         print(db.lastError().driverText())
+#         print("database not found!")
+#         return
+#     return db
 
 def create_connection(db_file):
     """creates a database connection to SQLite database
@@ -12,6 +24,8 @@ def create_connection(db_file):
     :return: Connection object or None
     """
     try:
+        db = QSqlDatabase.addDatabase("QSQLITE")
+        db.setDatabaseName("moves.sqlite")
         conn = sqlite3.connect(db_file)
         return conn
     except Error as e:

@@ -1,8 +1,11 @@
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from code.dance_app_uis.dance_app_main_window import Ui_DanceAppMainWindow
-from code.add_dance_code import *
-from code.modify_dance_code import *
-from code.move_challenge_code import *
+# from code.add_dance_code import *
+import code.add_dance_code as add_dance_code
+# from code.modify_dance_code import *
+import code.modify_dance_code as modify_dance_code
+# from code.move_challenge_code import *
+import code.move_challenge_code as move_challenge_code
 import sys
 
 
@@ -13,9 +16,9 @@ class DanceAppWindow(QMainWindow):
         self.ui.setupUi(self)
         self.assign_slots()
 
-        self.add_dance_window = None
-        self.modify_dance_window = None
-        self.challege_window = None
+        self.add_dance_window = add_dance_code.add_dance_window
+        self.modify_dance_window = modify_dance_code.modify_dance_window
+        self.select_window = move_challenge_code.select_window
 
     def assign_slots(self):
         self.ui.add_move_pushButton.clicked.connect(self.show_add_window)
@@ -23,13 +26,13 @@ class DanceAppWindow(QMainWindow):
         self.ui.challenge_pushButton.clicked.connect(self.show_challenge_window)
 
     def show_add_window(self):
-        add_dance_window.show()
+        self.add_dance_window.show()
 
     def show_modify_window(self):
-        modify_dance_window.show()
+        self.modify_dance_window.show()
 
     def show_challenge_window(self):
-        select_window.show()
+        self.select_window.show()
 
 
 # making sure I get error messages.

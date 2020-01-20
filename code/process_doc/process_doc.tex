@@ -56,12 +56,27 @@
 	\item \texttt{TODO:} Visual feedback about whether the input is valid - this involved changing the shade of the widget (in this case a QLineEdit) accordingly. We want it to be unobstrusive, so lower contrasts are preferred.\\
 	\textbf{Solution: }Decided to go with a message box instead of changing background color. Could probably implement this in future anyways.
 	\item \texttt{TODO: } Separating tags when user presses 'Enter'. This could be interesting. 
+	\item \textbf{Main Window: }Created a main window from which the user navigates to all other windows.  
+	\item \textbf{Revisiting Modify Dance Window: }\texttt{Tags} and \texttt{Description} are most likely gonna be too long to display in columns. What to do, then? I can add a miniature version of \texttt{Add Dance Window} right below the table view. I'll make the actual table view immutable, and the user can edit using the new field below the table view.
+	\item \texttt{TODO: }Update the dance data fields according to what move is selected. \textbf{Idea: }Move the DanceMove class out into its own module. And import that into each module I have. So I have access to all that stuff. \textbf{DONE}
+	\item \textbf{Selection Signals: }Used \texttt{view.setSelectionModel} to access \texttt{selectionChanged} signal. So now both click selections and cursor selections work. \\
+	\texttt{TODO: }Make sure that name is always selected.
+	\item \textbf{Changing tags edit: }Make it a line edit that adds into a list view on its side. Listen for enter key and pop it into the list view. 
+	\item \textbf{BIG }\texttt{TODO: }Context menu. Right clicks and shit.
 \end{itemize}
 \textbf{Playlist}
 \begin{itemize}
 	\item Mac Miller - Circles
 	\item Mac Miller - Good News
 	\item Davido, Popcaan - Risky
-	\item I
+	\item Lil Wayne - Hustlin'
+	\item Lil Wayne - Canon AMG Remix
+	\item Pusha T, Kehlani - Retribution
+	\item Pusha T - M.F.T.R
+	\item Pusha T - Got Em Covered
+	\item Pusha T - Intro
+	\item Pusha T - Untouchable
+	\item Grip - He is ... I am
+	\item Eminem - Lock It Up
 \end{itemize}
 \end{document}

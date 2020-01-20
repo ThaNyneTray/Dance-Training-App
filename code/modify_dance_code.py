@@ -1,8 +1,10 @@
-from PyQt5 import QtWidgets
-from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import *
+from PyQt5.QtCore import Qt, QItemSelectionModel
 from PyQt5.QtSql import *
 import sys
 from code.dance_app_uis.modify_dance_window import Ui_ModifyDanceMove
+from code.add_dance_code import *
+import code.database_manager as database_manager
 
 
 # TODO: move this to a separate file??
@@ -30,13 +32,13 @@ def initialize_model(model):
 
 
 def create_view(title, model):
-    view = QtWidgets.QTableView()
+    view = QTableView()
     view.setModel(model)
     view.setWindowTitle(title)
     return view
 
 
-class ModifyDanceWindow(QtWidgets.QMainWindow):
+class ModifyDanceWindow(QMainWindow):
     # init function
     def __init__(self):
         super(ModifyDanceWindow, self).__init__()
@@ -49,10 +51,29 @@ class ModifyDanceWindow(QtWidgets.QMainWindow):
         initialize_model(self.model)
 
         self.ui.moves_View.setModel(self.model)
+        self.ui.moves_View.hideColumn(2)
+        self.ui.moves_View.hideColumn(3)
         self.ui.moves_View.setSortingEnabled(True)
+        self.ui.moves_View.resizeColumnsToContents()
+        self.ui.moves_View.horizontalHeader().setStretchLastSection(True)
+        self.ui.moves_View.setSelectionMode(QAbstractItemView.SingleSelection)
+
+        self.ui.moves_View.selectionModel().selectionChanged.connect(self.populate_dance_data_fields)
         self.ui.submit_Button.clicked.connect(self.push_to_db)
         self.ui.cancel_Button.clicked.connect(self.cancel_changes)
         self.ui.search_lineEdit.textChanged.connect(self.search)
+
+    def populate_dance_data_fields(self):
+        category_indexes = {"Technique/Step": 0, "Concept": 1, "Set": 2, "Choreography": 3}
+        selected_indexes = self.ui.moves_View.selectedIndexes()
+        if not selected_indexes:
+            return
+        selected_move_attribute = selected_indexes[0].data()
+        selected_move = dance_moves[selected_move_attribute]
+        print(selected_move.name, selected_move.description, selected_move.tags, selected_move.category)
+        self.ui.name_lineEdit.setText(selected_move.name)
+        self.ui.description_textEdit.setText(selected_move.description)
+        self.ui.category_comboBox.setCurrentIndex(category_indexes[selected_move.category])
 
     def push_to_db(self):
         # TODO: pop a confirmation dialog
@@ -84,7 +105,7 @@ class ModifyDanceWindow(QtWidgets.QMainWindow):
             self.model.setFilter(("description LIKE '%{0}%'".format(pattern)))
 
 
-app = QtWidgets.QApplication(sys.argv)
+app = QApplication(sys.argv)
 modify_dance_window = ModifyDanceWindow()
 # window.show()
 # app.exec_()

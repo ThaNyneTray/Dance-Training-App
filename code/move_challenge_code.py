@@ -9,6 +9,7 @@ from PyQt5.QtWidgets import QAbstractItemView
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from code.dance_app_uis.move_challenge_window import Ui_ChallengeWindow
 from code.dance_app_uis.move_suggest_window import Ui_MoveChallengeWindow
+import code.database_manager as database_manager
 
 
 # TODO: move this to a separate file??
